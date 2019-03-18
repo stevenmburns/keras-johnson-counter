@@ -1,3 +1,4 @@
+import time
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
@@ -48,8 +49,9 @@ model.compile(optimizer=tf.keras.optimizers.Adam(0.2),
               metrics=['accuracy', 'mse', 'mae']
               )
 
+tensorboard = tf.keras.callbacks.TensorBoard(log_dir="logs/{}".format(time.time()))
 
-model.fit(x_train,y_train,epochs=8,validation_data=(x_val,y_val))
+model.fit(x_train,y_train,epochs=8,validation_data=(x_val,y_val),verbose=1,callbacks=[tensorboard])
 
 def pv(v):
     return ' '.join( "%.2f" % x for x in v)
